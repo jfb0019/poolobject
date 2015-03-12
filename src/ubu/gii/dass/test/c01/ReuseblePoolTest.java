@@ -80,10 +80,12 @@ public class ReuseblePoolTest {
 	@Test
 	public void testReleaseReusable() throws NotFreeInstanceException {
 		Reusable reusable1 = reusablePool.acquireReusable();
+		System.out.println("Reusable 1:"+reusable1.util());
 		Reusable reusable2 = reusablePool.acquireReusable();
 
 		reusablePool.releaseReusable(reusable1);
 		Reusable reusable3 = reusablePool.acquireReusable();
+		System.out.println("Reusable 3:"+reusable3.util());
 		assertEquals(
 				"Si liberamos un elemento reusable y le volvemos a adquirir, este elemento es el mismo ya que se reutiliza. Entrada: reusable1 y reusable2. Salida esperada: True.",
 				reusable3, reusable1);
