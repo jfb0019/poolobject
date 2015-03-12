@@ -75,10 +75,25 @@ public class ReuseblePoolTest {
 	 * Test method for
 	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}
 	 * .
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
-	}
+	public void testReleaseReusable() throws NotFreeInstanceException {
+		Reusable reusable1 = reusablePool.acquireReusable();
+		Reusable reusable2 = reusablePool.acquireReusable();
 
+		reusablePool.releaseReusable(reusable1);
+		Reusable reusable3 = reusablePool.acquireReusable();
+		assertEquals(
+				"Si liberamos un elemento reusable y le volvemos a adquirir, este elemento es el mismo ya que se reutiliza. Entrada: reusable1 y reusable2. Salida esperada: True.",
+				reusable3, reusable1);
+
+		reusablePool.releaseReusable(reusable2);
+		Reusable reusable4 = reusablePool.acquireReusable();
+		assertEquals(
+				"Si liberamos un elemento reusable y le volvemos a adquirir, este elemento es el mismo ya que se reutiliza. Entrada: reusable4 y reusable5. Salida esperada: True.",
+				reusable4, reusable2);
+	}
 }
+
+
